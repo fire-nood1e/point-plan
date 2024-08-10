@@ -22,15 +22,18 @@ import {useState} from "react";
 import Signup from "./pages/Signup.tsx";
 import {Preferences} from "@capacitor/preferences";
 import {User} from "./api/user.ts";
+import {useLocation} from "react-router";
 
 function TabBar() {
+	const location = useLocation();
+
 	return (
 		<IonTabs>
 			<IonRouterOutlet>
 				<Route exact path="/map">
 					<Radio/>
 				</Route>
-				<Route exact path="/">
+				<Route exact path="/chat">
 					<Library/>
 				</Route>
 				<Route exact path="/settings">
@@ -39,17 +42,17 @@ function TabBar() {
 			</IonRouterOutlet>
 
 			<IonTabBar slot="bottom">
-				<IonTabButton tab="map" href="/map">
+				<IonTabButton tab="map" href="/map" selected={location.pathname.startsWith("/map")}>
 					<IonIcon icon={mapOutline}/>
 					<IonLabel>Map</IonLabel>
 				</IonTabButton>
 
-				<IonTabButton tab="chat" href="/">
+				<IonTabButton tab="chat" href="/chat" selected={location.pathname.startsWith("/chat")}>
 					<IonIcon icon={chatbubblesOutline}/>
 					<IonLabel>Chat</IonLabel>
 				</IonTabButton>
 
-				<IonTabButton tab="settings" href="/settings">
+				<IonTabButton tab="settings" href="/settings" selected={location.pathname.startsWith("/settings")}>
 					<IonIcon icon={ellipsisHorizontalOutline}/>
 					<IonLabel>Settings</IonLabel>
 				</IonTabButton>
