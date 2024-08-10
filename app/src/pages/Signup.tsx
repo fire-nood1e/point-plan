@@ -47,9 +47,8 @@ function Signup({ goLoginPage }: { goLoginPage: () => void }) {
 					Sign Up
 				</IonButton>
 
-				<IonButton onClick={goLoginPage}>
-					<p>Join Now</p>
-				</IonButton>
+				<a onClick={goLoginPage}>Login</a>
+        
 			</IonContent>
 		</>
 	);

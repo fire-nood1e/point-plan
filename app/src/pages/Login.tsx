@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom';
 import {IonButton, IonContent, IonInput, IonItem, IonLabel} from "@ionic/react";
 import {login} from "../api/user.ts";
 
+
 function Login({ goJoinPage }: { goJoinPage: () => void }) {
 
 	// 사용자 이름과 비밀번호 상태 관리
@@ -47,10 +48,9 @@ function Login({ goJoinPage }: { goJoinPage: () => void }) {
 				<IonButton expand="block" onClick={handleLogin}>
 					Login
 				</IonButton>
-
-				<IonButton onClick={goJoinPage}>
-					<p>Join Now</p>
-				</IonButton>
+				
+                <a onClick={goJoinPage}>Join Now</a>		
+                	
 			</IonContent>
 		</>
 	);
