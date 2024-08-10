@@ -15,15 +15,15 @@ function Signup() {
         console.log('Username:', username);
         console.log('Password:', password);
 
-        // 로그인 성공 후 홈으로 이동
-        history.push('/home');
+        // 회원가입 성공 후 로그인 페이지로 이동
+        history.push('/login');
     };
 
   return (
     <>
       <IonContent className="ion-padding">
       <div>
-            <h2><strong>Login</strong></h2>
+            <h2><strong>Sign up</strong></h2>
             </div>
             <IonItem>
             <IonLabel position="floating"></IonLabel>
