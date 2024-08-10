@@ -7,7 +7,7 @@ import dotenv
 from fastapi import FastAPI
 
 from . import v1
-from .v1 import Database
+from .v1.database import Database
 
 
 @asynccontextmanager
