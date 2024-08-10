@@ -22,29 +22,24 @@ import {useState} from "react";
 import Signup from "./pages/Signup.tsx";
 import {completeOnBoarding} from "./store/onBoarding.ts";
 
-function Routes() {
-	return (
-		<IonRouterOutlet>
-			<Route exact path="/map">
-				<Radio/>
-			</Route>
-			<Route exact path="/chat">
-				<Library/>
-			</Route>
-			<Route exact path="/settings">
-				<Search/>
-			</Route>
-			<Route exact path="/">
-				<Redirect to="/chat"/>
-			</Route>
-		</IonRouterOutlet>
-	);
-}
-
 function TabBar() {
 	return (
 		<IonTabs>
-			<Routes/>
+			<IonRouterOutlet>
+				<Route exact path="/map">
+					<Radio/>
+				</Route>
+				<Route exact path="/chat">
+					<Library/>
+				</Route>
+				<Route exact path="/settings">
+					<Search/>
+				</Route>
+				<Route exact path="/">
+					<Redirect to="/chat"/>
+				</Route>
+			</IonRouterOutlet>
+
 			<IonTabBar slot="bottom">
 				<IonTabButton tab="radio" href="/radio">
 					<IonIcon icon={radio}/>

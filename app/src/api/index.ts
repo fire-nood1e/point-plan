@@ -20,6 +20,7 @@ export async function post(url: string, data: object, headers?: HttpHeaders) {
 		headers: {
 			...headers,
 			"Origin": "https://point-plan.buttercrab.net",
+			"Content-Type": "application/json",
 		},
 		readTimeout: undefined,
 		connectTimeout: undefined,

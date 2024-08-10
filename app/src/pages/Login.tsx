@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {IonButton, IonContent, IonInput, IonItem, IonLabel} from "@ionic/react";
 import {login} from "../api/user.ts";
+import {useAppDispatch} from "../store.ts";
 
 function Login({ goJoinPage }: { goJoinPage: () => void }) {
 
@@ -9,14 +10,15 @@ function Login({ goJoinPage }: { goJoinPage: () => void }) {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const history = useHistory();  // useHistory 훅 사용
+	const dispatch = useAppDispatch();
 
 	// 로그인 버튼 클릭 시 호출될 함수
 	const handleLogin = async () => {
 		// 입력된 사용자 이름과 비밀번호를 출력하거나, 서버에 요청을 보내는 등의 작업을 수행할 수 있습니다.
-		await login({username, password});
+		await login({username, password}, dispatch);
 
 		// 로그인 성공 후 홈으로 이동
-		history.push('/home');
+		history.push('/chat');
 	};
 
 	return (
@@ -29,7 +31,7 @@ function Login({ goJoinPage }: { goJoinPage: () => void }) {
 					<IonLabel position="floating"></IonLabel>
 					<IonInput
 						value={username}
-						onIonChange={(e) => setUsername(e.detail.value!)}
+						onInput={(e) => setUsername(e.target.value)}
 						placeholder="Enter your username"
 					/>
 				</IonItem>
@@ -39,7 +41,7 @@ function Login({ goJoinPage }: { goJoinPage: () => void }) {
 					<IonInput
 						type="password"
 						value={password}
-						onIonChange={(e) => setPassword(e.detail.value!)}
+						onInput={(e) => setPassword(e.target.value!)}
 						placeholder="Enter your password"
 					/>
 				</IonItem>

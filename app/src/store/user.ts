@@ -1,10 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {User} from "../api/user.ts";
+import {getUser} from "../api/user.ts";
 
 export const userSlice = createSlice({
 	name: 'user',
 	initialState: {
-		value: null as User | null,
+		value: await getUser(),
 	},
 	reducers: {
 		setUserSlice: (state, action) => {
