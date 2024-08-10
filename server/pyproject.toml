@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "server"
+version = "0.1.0"
+description = ""
+authors = ["Jaeyong Sung <jaeyong0201@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = { extras = ["standard"], version = "^0.112.0" }
+sqlalchemy = { extras = ["asyncio"], version = "^2.0.31" }
+asyncpg = "^0.29.0"
+fastapi-login = "^1.10.1"
+fastapi-sso = "^0.15.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.8.0"
+pylint = "^3.2.6"
+mypy = "^1.11.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
