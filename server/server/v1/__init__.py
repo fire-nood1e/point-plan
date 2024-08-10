@@ -2,8 +2,9 @@
 
 from fastapi import APIRouter
 
+from . import chat
 from . import user
-from .database import Database
 
 router = APIRouter()
 router.include_router(user.router)
+router.include_router(chat.router)

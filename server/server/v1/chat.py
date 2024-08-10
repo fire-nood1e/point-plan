@@ -1,9 +1,9 @@
 # pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring
 
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 
-from server.server.v1.database import (
+from .database import (
     Chat,
     ChatForm,
     ChatResponse,
@@ -13,7 +13,6 @@ from server.server.v1.database import (
     User,
 )
 
-from ..env import get_env
 from .user import manager
 
 router = APIRouter(prefix="/chat")
