@@ -11,12 +11,12 @@ import {
 	IonTabs,
 } from "@ionic/react";
 import {IonReactRouter} from "@ionic/react-router";
-import {library, radio, search} from "ionicons/icons";
+import {chatbubblesOutline, mapOutline, ellipsisHorizontalOutline} from "ionicons/icons";
 // import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import Radio from "./pages/Radio.tsx";
 import Library from "./pages/Library.tsx";
-import Search from "./pages/Search.tsx";
+import Settings from "./pages/Settings.tsx";
 import {useAppDispatch, useAppSelector} from "./store.ts";
 import {useState} from "react";
 import Signup from "./pages/Signup.tsx";
@@ -33,7 +33,7 @@ function TabBar() {
 					<Library/>
 				</Route>
 				<Route exact path="/settings">
-					<Search/>
+					<Settings/>
 				</Route>
 				<Route exact path="/">
 					<Redirect to="/chat"/>
@@ -41,19 +41,19 @@ function TabBar() {
 			</IonRouterOutlet>
 
 			<IonTabBar slot="bottom">
-				<IonTabButton tab="radio" href="/radio">
-					<IonIcon icon={radio}/>
-					<IonLabel>Radio</IonLabel>
+				<IonTabButton tab="map" href="/map">
+					<IonIcon icon={mapOutline}/>
+					<IonLabel>Map</IonLabel>
 				</IonTabButton>
 
-				<IonTabButton tab="library" href="/library">
-					<IonIcon icon={library}/>
-					<IonLabel>Library</IonLabel>
+				<IonTabButton tab="chat" href="/chat">
+					<IonIcon icon={chatbubblesOutline}/>
+					<IonLabel>Chat</IonLabel>
 				</IonTabButton>
 
-				<IonTabButton tab="search" href="/search">
-					<IonIcon icon={search}/>
-					<IonLabel>Search</IonLabel>
+				<IonTabButton tab="settings" href="/settings">
+					<IonIcon icon={ellipsisHorizontalOutline}/>
+					<IonLabel>Settings</IonLabel>
 				</IonTabButton>
 			</IonTabBar>
 		</IonTabs>

@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 
-function Search() {
+function Settings() {
   return (
     <>
       <IonHeader>
@@ -24,4 +24,4 @@ function Search() {
   );
 }
 
-export default Search;
+export default Settings;
