@@ -1,19 +1,26 @@
-import {CapacitorHttp, HttpOptions} from "@capacitor/core";
+import {CapacitorHttp} from "@capacitor/core";
+import {HttpHeaders} from "@capacitor/core/types/core-plugins";
 
-const API_URL = "http://point-plan.buttercrab.net/api";
+const API_URL = "https://point-plan.buttercrab.net/api";
 
-export async function get(url: string, options?: Partial<HttpOptions>) {
+export async function get(url: string, headers?: HttpHeaders) {
 	return (await CapacitorHttp.get({
-		...options,
+		headers: {
+			...headers,
+			"Origin": "https://point-plan.buttercrab.net",
+		},
 		readTimeout: undefined,
 		connectTimeout: undefined,
 		url: API_URL + url,
 	}));
 }
 
-export async function post(url: string, data: object, options?: Partial<HttpOptions>) {
+export async function post(url: string, data: object, headers?: HttpHeaders) {
 	return (await CapacitorHttp.post({
-		...options,
+		headers: {
+			...headers,
+			"Origin": "https://point-plan.buttercrab.net",
+		},
 		readTimeout: undefined,
 		connectTimeout: undefined,
 		url: API_URL + url,
@@ -21,9 +28,12 @@ export async function post(url: string, data: object, options?: Partial<HttpOpti
 	}));
 }
 
-export async function put(url: string, data: object, options?: Partial<HttpOptions>) {
+export async function put(url: string, data: object, headers?: HttpHeaders) {
 	return (await CapacitorHttp.put({
-		...options,
+		headers: {
+			...headers,
+			"Origin": "https://point-plan.buttercrab.net",
+		},
 		readTimeout: undefined,
 		connectTimeout: undefined,
 		url: API_URL + url,
@@ -31,9 +41,12 @@ export async function put(url: string, data: object, options?: Partial<HttpOptio
 	}));
 }
 
-export async function del(url: string, options?: Partial<HttpOptions>) {
+export async function del(url: string, headers?: HttpHeaders) {
 	return (await CapacitorHttp.delete({
-		...options,
+		headers: {
+			...headers,
+			"Origin": "https://point-plan.buttercrab.net",
+		},
 		readTimeout: undefined,
 		connectTimeout: undefined,
 		url: API_URL + url,
