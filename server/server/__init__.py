@@ -8,11 +8,15 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from . import v1
+from .v1.chat import ChatContext
 from .v1.database import Database
+
+engine = None
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
+    ChatContext.init()
     await Database.init()
     yield
     await Database.close()

@@ -4,6 +4,7 @@
 import asyncio
 from datetime import datetime
 
+from langchain_core.messages import HumanMessage, AIMessage
 from sqlalchemy.ext.asyncio import (
     AsyncAttrs,
     AsyncEngine,
@@ -105,6 +106,11 @@ class Message(Base):
             message_time=self.message_time,
             message_from=self.message_from,
         )
+
+    def to_conversation(self) -> HumanMessage | AIMessage:
+        if self.message_from == 1:
+            return HumanMessage(content=self.message)
+        return AIMessage(content=self.message)
 
 
 class MessageForm(BaseModel):
