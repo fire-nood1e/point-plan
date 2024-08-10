@@ -15,7 +15,7 @@ import {chatbubblesOutline, ellipsisHorizontalOutline, mapOutline} from "ionicon
 // import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import Map from "./pages/Map.tsx";
-import Library from "./pages/Library.tsx";
+import Chat from "./pages/Chat.tsx";
 import Settings from "./pages/Settings.tsx";
 import {UserContext} from "./store.ts";
 import {useState} from "react";
@@ -34,7 +34,7 @@ function TabBar() {
 					<Map/>
 				</Route>
 				<Route exact path="/chat">
-					<Library/>
+					<Chat/>
 				</Route>
 				<Route exact path="/settings">
 					<Settings/>
