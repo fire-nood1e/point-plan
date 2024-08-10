@@ -66,11 +66,11 @@ function TabBar() {
 }
 
 function OnBoarding() {
-	// const dispatch = useAppDispatch();
+	const dispatch = useAppDispatch();
 
 	return (
 		<IonItem>
-			{/*<IonButton onClick={() => dispatch(completeOnBoarding())}>complete onboarding</IonButton>*/}
+			<IonButton onClick={() => dispatch(completeOnBoarding())}>complete onboarding</IonButton>
 		</IonItem>
 	)
 }
