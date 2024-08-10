@@ -22,7 +22,7 @@ import {useState} from "react";
 import Signup from "./pages/Signup.tsx";
 import {Preferences} from "@capacitor/preferences";
 import {User} from "./api/user.ts";
-import {useLocation} from "react-router";
+import {Redirect, useLocation} from "react-router";
 
 function TabBar() {
 	const location = useLocation();
@@ -39,6 +39,7 @@ function TabBar() {
 				<Route exact path="/settings">
 					<Settings/>
 				</Route>
+				<Redirect exact path="/" to="/chat"/>
 			</IonRouterOutlet>
 
 			<IonTabBar slot="bottom">

@@ -21,7 +21,10 @@ if __name__ == '__main__':
         filename = f"pohang_geohash_{type}_20240{month}.csv"
         path_ = Path(__file__).parent.parent / "data" / filename
 
+        data = {}
+
         async with async_open(path_) as f:
+            cnt = 0
             is_first = True
             async for line in f:
                 if is_first:
@@ -30,12 +33,24 @@ if __name__ == '__main__':
                 line: str
                 arr = line.replace('"', "").strip().split(",")
                 date = arr[0]
-                value = arr[2]
-                lat = arr[3]
-                lon = arr[4]
+                value = float(arr[2])
+                lat = float(arr[3])
+                lon = float(arr[4])
 
-                async with async_open(f"data/{type}-{date}.csv", "a") as files:
-                    await files.write(f"{lat},{lon},{value}\n")
+                if date not in data:
+                    data[date] = []
+                data[date].append((lat, lon, value))
+
+                cnt += 1
+                if cnt % 1000 == 0:
+                    print(f"{type}-{month}: {cnt} is done")
+
+        for date, arr in data.items():
+            filename = f"{type}-{date}.csv"
+            path_ = Path(__file__).parent / "data" / filename
+            async with async_open(path_, "w") as f:
+                for lat, lon, value in arr:
+                    await f.write(f"{lat},{lon},{value}\n")
 
 
     async def main():
