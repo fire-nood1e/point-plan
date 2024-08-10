@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {IonButton, IonContent, IonInput, IonItem, IonLabel} from "@ionic/react";
+import {IonButton, IonContent, IonInput, IonItem, IonLabel, IonRouterLink} from "@ionic/react";
+import {IonReactRouter} from "@ionic/react-router";
 import {login} from "../api/user.ts";
 
 function Login() {
@@ -47,6 +48,12 @@ function Login() {
 				<IonButton expand="block" onClick={handleLogin}>
 					Login
 				</IonButton>
+
+				<IonReactRouter>
+					<IonRouterLink href="/register">
+						<p>Join Now</p>
+					</IonRouterLink>
+				</IonReactRouter>
 			</IonContent>
 		</>
 	);
