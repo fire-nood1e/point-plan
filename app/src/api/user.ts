@@ -1,6 +1,8 @@
-import {ax} from ".";
+import {del, get, post} from ".";
 import {Preferences} from '@capacitor/preferences';
-import {AxiosRequestConfig} from "axios";
+import {useAppDispatch} from "../store.ts";
+import {HttpOptions} from "@capacitor/core";
+import {removeUserSlice, setUserSlice} from "../store/user.ts";
 
 
 export type UserForm = {
@@ -29,18 +31,21 @@ async function setUser(user: User): Promise<User> {
 	await Preferences.set({
 		key: 'user',
 		value: JSON.stringify(user),
-	})
+	});
+
+	const dispatch = useAppDispatch();
+	dispatch(setUserSlice(user));
 	return user;
 }
 
-export async function getSessionConfig<D>(): Promise<AxiosRequestConfig<D>> {
+export async function getSessionConfig(): Promise<Partial<HttpOptions> | null> {
 	const session = (await Preferences.get({key: 'session'})).value;
-	return {headers: {Cookie: session}};
+	return session ? {headers: {Cookie: session}} : null;
 }
 
 export async function login(data: UserForm) {
 	try {
-		const res = await ax.post("/user/login", data);
+		const res = await post("/user/login", data);
 		const session =
 			res.headers["set-cookie"]?.[0]
 				?.split(";")
@@ -62,28 +67,39 @@ export async function login(data: UserForm) {
 export async function logout() {
 	await Preferences.remove({key: 'session'});
 	await Preferences.remove({key: 'user'});
-	await ax.post('/user/logout', {}, await getSessionConfig());
+	const dispatch = useAppDispatch();
+	dispatch(removeUserSlice());
+
+	const session  = await getSessionConfig();
+	if (!session) return;
+	await post('/user/logout', {}, session);
 }
 
 export async function myInfo() {
-	return await setUser((await ax.get('/user/me', await getSessionConfig())).data);
+	const session  = await getSessionConfig();
+	if (!session) return;
+	return await setUser((await get('/user/me', session)).data);
 }
 
 export async function register(data: UserForm) {
-	return await setUser((await ax.post('/user/register', data)).data);
+	return await setUser((await post('/user/register', data)).data);
 }
 
 export async function deleteUser() {
 	const session = (await Preferences.get({key: 'session'})).value;
+	if (!session) return;
 	await Preferences.remove({key: 'session'});
-	await ax.delete('/user', {headers: {Cookie: session}});
+	await Preferences.remove({key: 'user'});
+	const dispatch = useAppDispatch();
+	dispatch(removeUserSlice());
+	await del('/user', {headers: {Cookie: session}});
 }
 
 export async function changePassword(data: { current: string, password: string }) {
-	return await setUser((await ax.post('/user/password', data)).data);
+	return await setUser((await post('/user/password', data)).data);
 }
 
 export async function editUser(data: UserEditForm) {
-	return await setUser((await ax.post('/user/info', data)).data);
+	return await setUser((await post('/user/info', data)).data);
 }
 
