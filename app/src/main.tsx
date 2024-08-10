@@ -17,6 +17,7 @@ import "@ionic/react/css/display.css";
 // import "@ionic/react/css/palettes/dark.system.css"; /* Theme variables */
 import "./theme/variables.css";
 import "./theme/tab-bar.css";
+// import {browser} from "globals";
 
 setupIonicReact({
 	mode: "ios",

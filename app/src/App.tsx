@@ -14,7 +14,7 @@ import {IonReactRouter} from "@ionic/react-router";
 import {chatbubblesOutline, ellipsisHorizontalOutline, mapOutline} from "ionicons/icons";
 // import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
-import Radio from "./pages/Radio.tsx";
+import Map from "./pages/Map.tsx";
 import Library from "./pages/Library.tsx";
 import Settings from "./pages/Settings.tsx";
 import {UserContext} from "./store.ts";
@@ -31,7 +31,7 @@ function TabBar() {
 		<IonTabs>
 			<IonRouterOutlet>
 				<Route exact path="/map">
-					<Radio/>
+					<Map/>
 				</Route>
 				<Route exact path="/chat">
 					<Library/>
