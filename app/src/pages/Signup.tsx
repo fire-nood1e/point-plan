@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {IonButton, IonContent, IonInput, IonItem, IonLabel} from "@ionic/react";
-import {login} from "../api/user.ts";
+import {register} from "../api/user.ts";
 
-function Signup() {
+function Signup({ goLoginPage }: { goLoginPage: () => void }) {
 	// 사용자 이름과 비밀번호 상태 관리
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -12,7 +12,7 @@ function Signup() {
 	// 로그인 버튼 클릭 시 호출될 함수
 	const handleLogin = async () => {
 		// 입력된 사용자 이름과 비밀번호를 출력하거나, 서버에 요청을 보내는 등의 작업을 수행할 수 있습니다.
-		await login({username, password});
+		await register({username, password});
 
 		// 회원가입 성공 후 로그인 페이지로 이동
 		history.push('/login');
@@ -45,6 +45,10 @@ function Signup() {
 				{/* 회원가입 버튼 */}
 				<IonButton expand="block" onClick={handleLogin}>
 					Sign Up
+				</IonButton>
+
+				<IonButton onClick={goLoginPage}>
+					<p>Join Now</p>
 				</IonButton>
 			</IonContent>
 		</>

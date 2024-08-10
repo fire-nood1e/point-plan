@@ -1,10 +1,9 @@
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {IonButton, IonContent, IonInput, IonItem, IonLabel, IonRouterLink} from "@ionic/react";
-import {IonReactRouter} from "@ionic/react-router";
+import {IonButton, IonContent, IonInput, IonItem, IonLabel} from "@ionic/react";
 import {login} from "../api/user.ts";
 
-function Login() {
+function Login({ goJoinPage }: { goJoinPage: () => void }) {
 
 	// 사용자 이름과 비밀번호 상태 관리
 	const [username, setUsername] = useState('');
@@ -49,11 +48,9 @@ function Login() {
 					Login
 				</IonButton>
 
-				<IonReactRouter>
-					<IonRouterLink href="/register">
-						<p>Join Now</p>
-					</IonRouterLink>
-				</IonReactRouter>
+				<IonButton onClick={goJoinPage}>
+					<p>Join Now</p>
+				</IonButton>
 			</IonContent>
 		</>
 	);
