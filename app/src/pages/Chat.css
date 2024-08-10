@@ -47,8 +47,8 @@ ion-button {
     /* --background: #66A6FF; */
     --background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
     --background-hover: #9ce0be;
-    --background-activated: #88f4be;
-    --background-focused: #88f4be;
+    --background-activated: #BBE1FC;
+    --background-focused: #BBE1FC;
   
     --color: white;
   
