@@ -48,7 +48,7 @@ function Map() {
 			<IonContent>
 				<div id="naver-map" style={{width: "100vw", height: "100vh", position: "absolute", left: "0", top: "0"}}></div>
 				<div style={{padding: "10px"}}>
-					<IonSegment value="decibel" onIonChange={(e) => setSelected(e.detail.value as string)}>
+					<IonSegment value={selected} onIonChange={(e) => setSelected(e.detail.value as string)}>
 						<IonSegmentButton value="decibel">
 							<IonLabel>Decibel</IonLabel>
 						</IonSegmentButton>
@@ -72,7 +72,7 @@ function Map() {
 					<IonDatetime
 						id="datetime"
 						presentation="date-time"
-						value="2024-07-11T10:00:00"
+						value={datetime}
 						formatOptions={{
 							time: {hour: '2-digit', minute: '2-digit'},
 							date: {day: '2-digit', month: 'long'},
