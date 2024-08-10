@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { IonContent, IonInput, IonItem, IonLabel, IonButton } from "@ionic/react";
+import { IonContent, IonInput, IonItem, IonLabel, IonButton, IonRouterLink } from "@ionic/react";
+import { IonReactRouter } from "@ionic/react-router";
 
 function Login() {
 
@@ -47,6 +48,11 @@ function Login() {
             <IonButton expand="block" onClick={handleLogin}>
             Login
             </IonButton>
+            <IonReactRouter>
+                <IonRouterLink href="/register">
+                    <p>Join Now</p>
+                </IonRouterLink>
+            </IonReactRouter>
       </IonContent>
     </>
   );

@@ -15,6 +15,7 @@ import Login from "./pages/Login.tsx";
 import Radio from "./pages/Radio.tsx";
 import Library from "./pages/Library.tsx";
 import Search from "./pages/Search.tsx";
+import Signup from "./pages/Signup.tsx";
 
 function App() {
   return (
@@ -34,9 +35,16 @@ function App() {
             <Route exact path="/search">
               <Search />
             </Route>
+            <Route exact path="/register">
+              <Signup />
+            </Route>
+
             <Route exact path="/">
               <Redirect to="/login" />
             </Route>
+            {/* <Route exact path="/register">
+              <Redirect to="/signup" />  
+            </Route> */}
           </IonRouterOutlet>
 
           <IonTabBar slot="bottom">
