@@ -9,8 +9,8 @@ export const onBoardingSlice = createSlice({
 		value: onBoarding,
 	},
 	reducers: {
-		completeOnBoarding: async (state) => {
-			await Preferences.set({key: "onBoarding", value: "false"});
+		completeOnBoarding: (state) => {
+			Preferences.set({key: "onBoarding", value: "false"});
 			state.value = false;
 		},
 	},

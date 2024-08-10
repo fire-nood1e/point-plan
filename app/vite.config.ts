@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: "../dist",
-    minify: false,
+    minify: 'esbuild',
+    target: "esnext",
     emptyOutDir: true,
   },
 });
