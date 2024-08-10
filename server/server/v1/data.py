@@ -45,6 +45,7 @@ if __name__ == '__main__':
         for t in type:
             for m in month:
                 await process_data(t, m)
+                print(f"{t}-{m} is done")
 
 
     asyncio.run(main())
