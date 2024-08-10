@@ -66,9 +66,9 @@ async def list_messages(
         if not chat or chat.user_id != user.user_id:
             raise HTTPException(status_code=404, detail="Chat not found")
 
-        stmt = select(Chat).where(Chat.chat_id == chat_id)
+        stmt = select(Message).where(Message.chat_id == chat_id)
         res = (await session.execute(stmt)).scalars().all()
-        return [chat.to_response() for chat in res]
+        return [msg.to_response() for msg in res]
 
 
 @router.post("/")
