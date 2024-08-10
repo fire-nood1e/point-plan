@@ -63,6 +63,9 @@ importers:
       '@ionic/cli':
         specifier: ^7.2.0
         version: 7.2.0
+      '@types/navermaps':
+        specifier: ^3.7.5
+        version: 3.7.5
       '@types/node':
         specifier: ^22.1.0
         version: 22.2.0
@@ -651,8 +654,14 @@ packages:
   '@types/fs-extra@8.1.5':
     resolution: {integrity: sha512-0dzKcwO+S8s2kuF5Z9oUWatQJj5Uq/iqphEtE3GQJVRRYm/tD1LglU2UnXi2A8jLq5umkGouOXOR9y0n613ZwQ==}
 
+  '@types/geojson@7946.0.14':
+    resolution: {integrity: sha512-WCfD5Ht3ZesJUsONdhvm84dmzWOiOzOAqOncN0++w0lBw1o8OuDNJF2McvvCef/yBqb/HYRahp1BYtODFQ8bRg==}
+
   '@types/history@4.7.11':
     resolution: {integrity: sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA==}
+
+  '@types/navermaps@3.7.5':
+    resolution: {integrity: sha512-RzqYi0K5xhs45+KLkeoWjz2niDjVwKMYS1/LKns2LH9L7LEMVabdmyhP7n/6fzdJnbHc1wD1Dz+lFKOgq4yzJQ==}
 
   '@types/node@22.2.0':
     resolution: {integrity: sha512-bm6EG6/pCpkxDf/0gDNDdtDILMOHgaQBVOJGdwsqClnxA3xL6jtMv76rLBc006RVMWbmaf0xbmom4Z/5o2nRkQ==}
@@ -2747,7 +2756,13 @@ snapshots:
     dependencies:
       '@types/node': 22.2.0
 
+  '@types/geojson@7946.0.14': {}
+
   '@types/history@4.7.11': {}
+
+  '@types/navermaps@3.7.5':
+    dependencies:
+      '@types/geojson': 7946.0.14
 
   '@types/node@22.2.0':
     dependencies:
