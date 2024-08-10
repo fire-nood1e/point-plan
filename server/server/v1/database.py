@@ -2,6 +2,7 @@
 # pylint: disable=missing-module-docstring, missing-class-docstring, too-few-public-methods
 
 import asyncio
+from datetime import datetime
 
 from sqlalchemy.ext.asyncio import (
     AsyncAttrs,
@@ -30,6 +31,7 @@ class User(Base):
 
     def to_response(self) -> "UserResponse":
         return UserResponse(
+            user_id=self.user_id,
             username=self.username,
             nickname=self.nickname,
             profile_img=self.profile_img,
@@ -48,12 +50,12 @@ class UserForm(BaseModel):
 
 
 class UserEditForm(BaseModel):
-    username: str
     nickname: str | None
     profile_img: str | None
 
 
 class UserResponse(BaseModel):
+    user_id: int
     username: str
     nickname: str | None
     profile_img: str | None
@@ -107,13 +109,12 @@ class Message(Base):
 
 class MessageForm(BaseModel):
     message: str
-    message_time: str
 
     def to_message(self, chat_id: int) -> Message:
         return Message(
             chat_id=chat_id,
             message=self.message,
-            message_time=self.message_time,
+            message_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             message_from=1,
         )
 

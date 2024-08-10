@@ -6,7 +6,7 @@ from fastapi_login.exceptions import InvalidCredentialsException
 from sqlalchemy import select
 
 from ..env import get_env
-from .database import Database, User, UserResponse, UserForm
+from .database import Database, User, UserEditForm, UserResponse, UserForm
 
 manager = LoginManager(
     get_env("SECRET"), "/api/login", use_cookie=True, use_header=False
@@ -26,7 +26,7 @@ router = APIRouter(prefix="/auth")
 
 
 @router.post("/login")
-async def login(response: Response, username: str, password: str) -> dict:
+async def login(response: Response, username: str, password: str) -> UserResponse:
     user = await query_user(username)
     if not user:
         raise InvalidCredentialsException
@@ -35,7 +35,7 @@ async def login(response: Response, username: str, password: str) -> dict:
 
     access_token = manager.create_access_token(data={"sub": username})
     response.set_cookie(manager.cookie_name, access_token, httponly=True)
-    return {"status": "ok"}
+    return user.to_response()
 
 
 @router.post("/logout")
@@ -44,26 +44,27 @@ async def logout(response: Response) -> dict:
     return {"status": "ok"}
 
 
-@router.get("/my-info")
+@router.get("/me")
 async def my_info(user: User = Depends(manager)) -> UserResponse:
     return user.to_response()
 
 
 @router.post("/register")
-async def register(data: UserForm) -> dict:
+async def register(data: UserForm) -> UserResponse:
     async with Database.async_session() as session:
         stmt = select(User).where(User.username == data.username)
         res = (await session.execute(stmt)).scalar()
         if res:
             raise InvalidCredentialsException
 
-        session.add(data.to_user())
+        user = data.to_user()
+        session.add(user)
         await session.commit()
 
-    return {"status": "ok"}
+    return user.to_response()
 
 
-@router.delete("/delete-user")
+@router.delete("/")
 async def delete_user(user: User = Depends(manager)) -> dict:
     async with Database.async_session() as session:
         stmt = select(User).where(User.username == user.username)
@@ -77,10 +78,10 @@ async def delete_user(user: User = Depends(manager)) -> dict:
     return {"status": "ok"}
 
 
-@router.put("/change-password")
+@router.put("/password")
 async def change_password(
     current: str, password: str, user: User = Depends(manager)
-) -> dict:
+) -> UserResponse:
     async with Database.async_session() as session:
         stmt = select(User).where(User.username == user.username)
         res = (await session.execute(stmt)).scalar()
@@ -92,18 +93,21 @@ async def change_password(
         res.password = password
         await session.commit()
 
-    return {"status": "ok"}
+    return res.to_response()
 
 
-@router.put("/change-nickname")
-async def change_nickname(nickname: str, user: User = Depends(manager)) -> dict:
+@router.put("/info")
+async def edit_info(info: UserEditForm, user: User = Depends(manager)) -> UserResponse:
     async with Database.async_session() as session:
         stmt = select(User).where(User.username == user.username)
         res = (await session.execute(stmt)).scalar()
         if not res:
             raise InvalidCredentialsException
 
-        res.nickname = nickname
+        if info.profile_img:
+            res.profile_img = info.profile_img
+        if info.nickname:
+            res.nickname = info.nickname
         await session.commit()
 
-    return {"status": "ok"}
+    return res.to_response()
