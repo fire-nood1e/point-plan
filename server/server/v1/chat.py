@@ -93,7 +93,7 @@ async def create_message(
         if not chat or chat.user_id != user.user_id:
             raise HTTPException(status_code=404, detail="Chat not found")
 
-        session.add(message.to_message(chat_id))
+        session.add(message.to_message(chat_id, 1))
         await session.commit()
 
         stmt = select(Message).where(Message.chat_id == chat_id)
@@ -144,7 +144,7 @@ async def create_message(
 
     response = answer_user_query(message.message)
     message = MessageForm(message=response, message_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    message = message.to_message(chat_id)
+    message = message.to_message(chat_id, 0)
 
     async with Database.async_session() as session:
         session.add(message)

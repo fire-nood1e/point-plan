@@ -116,12 +116,12 @@ class Message(Base):
 class MessageForm(BaseModel):
     message: str
 
-    def to_message(self, chat_id: int) -> Message:
+    def to_message(self, chat_id: int, message_from: int) -> Message:
         return Message(
             chat_id=chat_id,
             message=self.message,
             message_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            message_from=1,
+            message_from=message_from,
         )
 
 
