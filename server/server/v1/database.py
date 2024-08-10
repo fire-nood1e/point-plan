@@ -64,7 +64,7 @@ class Database:
     """
 
     engine: AsyncEngine | None
-    async_session: async_sessionmaker[AsyncSession] | None
+    async_session: async_sessionmaker[AsyncSession]
 
     @classmethod
     async def init(cls) -> None:

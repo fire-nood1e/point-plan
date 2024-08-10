@@ -1,0 +1,47 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SQL_USER: ${POSTGRES_USER}
+      SQL_PASSWORD: ${POSTGRES_PASSWORD}
+      SQL_DB: ${POSTGRES_DB}
+      SQL_HOST: "postgresql:5432"
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.relay.rule=Host(`${EXPOSE_HOST}`)
+      - traefik.http.routers.relay.tls=true
+      - traefik.http.routers.relay.tls.certresolver=le
+      - traefik.http.routers.relay.entrypoints=websecured
+      - traefik.http.routers.relay.service=relay
+      - traefik.http.services.relay.loadbalancer.server.port=8000
+    networks:
+      - traefik-proxy
+
+  postgresql:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+    expose:
+        - "5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  postgresql_data:
+
+networks:
+  traefik-proxy:
+    external: true

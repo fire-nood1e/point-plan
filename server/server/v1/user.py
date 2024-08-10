@@ -14,7 +14,7 @@ manager = LoginManager(
 
 
 @manager.user_loader()
-async def query_user(username: str) -> User:
+async def query_user(username: str) -> User | None:
     async with Database.async_session() as session:
         stmt = select(User).where(User.username == username)
         res = (await session.execute(stmt)).scalar()
