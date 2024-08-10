@@ -19,7 +19,7 @@ services:
       - traefik.http.routers.point-plan.tls.certresolver=le
       - traefik.http.routers.point-plan.entrypoints=websecured
       - traefik.http.routers.point-plan.service=point-plan
-      - traefik.http.services.point-plan.loadbalancer.server.port=8000
+      - traefik.http.services.point-plan.loadbalancer.server.port=80
     networks:
       - traefik-proxy
       - point-plan
