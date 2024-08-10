@@ -24,25 +24,22 @@ function Map() {
 				zoom: 10
 			});
 
-			const heatMap = new naver.maps.visualization.HeatMap({
-				data: [],
-				map: naverMap,
-			});
-
 			setMap(naverMap);
-			setHeatMap(heatMap);
+			setDatetime("2024-07-11T11:00:00");
 		}
 	});
 
 	useEffect(() => {
-		if (!map || !heatMap) return;
+		if (!map) return;
 		getData(selected, datetime.replace("T", " ")).then((data) => {
-			heatMap!.setOptions({
+			heatMap?.setMap(null);
+			const heatMap_ = new naver.maps.visualization.HeatMap({
 				data: data.map((item) => {
 					return new naver.maps.visualization.WeightedLocation(item[0], item[1], item[2]);
 				}),
 				map: map!,
 			});
+			setHeatMap(heatMap_);
 		});
 	}, [selected, datetime]);
 
