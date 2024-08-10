@@ -10,7 +10,7 @@ import {
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { library, playCircle, radio, search } from "ionicons/icons";
-// import Home from "./pages/Home.tsx";
+import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import Radio from "./pages/Radio.tsx";
 import Library from "./pages/Library.tsx";
@@ -23,6 +23,9 @@ function App() {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
+            <Route exact path="/home">
+              <Home />
+            </Route>
             <Route exact path="/login">
               <Login />
             </Route>
@@ -42,9 +45,7 @@ function App() {
             <Route exact path="/">
               <Redirect to="/login" />
             </Route>
-            {/* <Route exact path="/register">
-              <Redirect to="/signup" />  
-            </Route> */}
+
           </IonRouterOutlet>
 
           <IonTabBar slot="bottom">
