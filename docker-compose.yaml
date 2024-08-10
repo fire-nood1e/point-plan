@@ -14,12 +14,12 @@ services:
         condition: service_healthy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.relay.rule=Host(`${EXPOSE_HOST}`)
-      - traefik.http.routers.relay.tls=true
-      - traefik.http.routers.relay.tls.certresolver=le
-      - traefik.http.routers.relay.entrypoints=websecured
-      - traefik.http.routers.relay.service=relay
-      - traefik.http.services.relay.loadbalancer.server.port=8000
+      - traefik.http.routers.point-plan.rule=Host(`${EXPOSE_HOST}`)
+      - traefik.http.routers.point-plan.tls=true
+      - traefik.http.routers.point-plan.tls.certresolver=le
+      - traefik.http.routers.point-plan.entrypoints=websecured
+      - traefik.http.routers.point-plan.service=point-plan
+      - traefik.http.services.point-plan.loadbalancer.server.port=8000
     networks:
       - traefik-proxy
 
