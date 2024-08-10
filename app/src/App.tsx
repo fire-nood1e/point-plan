@@ -9,7 +9,7 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { library, playCircle, radio, search } from "ionicons/icons";
+import { chatbubblesOutline, playCircle, radio, ellipsisHorizontalOutline } from "ionicons/icons";
 import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import Radio from "./pages/Radio.tsx";
@@ -60,13 +60,13 @@ function App() {
             </IonTabButton>
 
             <IonTabButton tab="library" href="/library">
-              <IonIcon icon={library} />
-              <IonLabel>Library</IonLabel>
+              <IonIcon icon={chatbubblesOutline} />
+              <IonLabel>Plan Now</IonLabel>
             </IonTabButton>
 
-            <IonTabButton tab="search" href="/search">
-              <IonIcon icon={search} />
-              <IonLabel>Search</IonLabel>
+            <IonTabButton tab="setting" href="/setting">
+              <IonIcon icon={ellipsisHorizontalOutline} />
+              <IonLabel>Settings</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>
