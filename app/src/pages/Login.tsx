@@ -1,22 +1,22 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {IonButton, IonContent, IonInput, IonItem, IonLabel} from "@ionic/react";
 import {login} from "../api/user.ts";
-import {useAppDispatch} from "../store.ts";
+import {UserContext} from "../store.ts";
 
 
-function Login({ goJoinPage }: { goJoinPage: () => void }) {
+function Login({goJoinPage}: { goJoinPage: () => void }) {
 
 	// 사용자 이름과 비밀번호 상태 관리
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const history = useHistory();  // useHistory 훅 사용
-	const dispatch = useAppDispatch();
+	const {setUser} = useContext(UserContext);
 
 	// 로그인 버튼 클릭 시 호출될 함수
 	const handleLogin = async () => {
 		// 입력된 사용자 이름과 비밀번호를 출력하거나, 서버에 요청을 보내는 등의 작업을 수행할 수 있습니다.
-		await login({username, password}, dispatch);
+		await login({username, password}, setUser);
 
 		// 로그인 성공 후 홈으로 이동
 		history.push('/chat');
@@ -50,9 +50,9 @@ function Login({ goJoinPage }: { goJoinPage: () => void }) {
 				<IonButton expand="block" onClick={handleLogin}>
 					Login
 				</IonButton>
-				
-                <a onClick={goJoinPage}>Join Now</a>		
-                	
+
+				<a onClick={goJoinPage}>Join Now</a>
+
 			</IonContent>
 		</>
 	);

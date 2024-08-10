@@ -10,7 +10,7 @@ ion-tab-bar {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
     border-radius: 15px !important;
 
-    height: 50px;
+    height: 55px;
     width: 90%;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -27,4 +27,8 @@ ion-tab-button {
 
 ion-tab-button ion-icon {
     font-size: 1.5rem;
+}
+
+ion-tab-button ion-label {
+    font-size: 1rem;
 }

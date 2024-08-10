@@ -1,4 +1,4 @@
-import {Redirect, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {
 	IonApp,
 	IonButton,
@@ -11,16 +11,17 @@ import {
 	IonTabs,
 } from "@ionic/react";
 import {IonReactRouter} from "@ionic/react-router";
-import {chatbubblesOutline, mapOutline, ellipsisHorizontalOutline} from "ionicons/icons";
+import {chatbubblesOutline, ellipsisHorizontalOutline, mapOutline} from "ionicons/icons";
 // import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import Radio from "./pages/Radio.tsx";
 import Library from "./pages/Library.tsx";
 import Settings from "./pages/Settings.tsx";
-import {useAppDispatch, useAppSelector} from "./store.ts";
+import {UserContext} from "./store.ts";
 import {useState} from "react";
 import Signup from "./pages/Signup.tsx";
-import {completeOnBoarding} from "./store/onBoarding.ts";
+import {Preferences} from "@capacitor/preferences";
+import {User} from "./api/user.ts";
 
 function TabBar() {
 	return (
@@ -29,14 +30,11 @@ function TabBar() {
 				<Route exact path="/map">
 					<Radio/>
 				</Route>
-				<Route exact path="/chat">
+				<Route exact path="/">
 					<Library/>
 				</Route>
 				<Route exact path="/settings">
 					<Settings/>
-				</Route>
-				<Route exact path="/">
-					<Redirect to="/chat"/>
 				</Route>
 			</IonRouterOutlet>
 
@@ -46,7 +44,7 @@ function TabBar() {
 					<IonLabel>Map</IonLabel>
 				</IonTabButton>
 
-				<IonTabButton tab="chat" href="/chat">
+				<IonTabButton tab="chat" href="/">
 					<IonIcon icon={chatbubblesOutline}/>
 					<IonLabel>Chat</IonLabel>
 				</IonTabButton>
@@ -60,30 +58,44 @@ function TabBar() {
 	);
 }
 
-function OnBoarding() {
-	const dispatch = useAppDispatch();
-
+function OnBoarding({completeOnBoarding}: { completeOnBoarding: () => void }) {
 	return (
 		<IonItem>
-			<IonButton onClick={() => dispatch(completeOnBoarding())}>complete onboarding</IonButton>
+			onBoarding
+			<IonButton onClick={completeOnBoarding}>complete onboarding</IonButton>
 		</IonItem>
 	)
 }
 
+const onBoardingPreference = (await Preferences.get({key: "onBoarding"})).value == null;
+const _userPreference = (await Preferences.get({key: "user"})).value;
+let userPreference: User | null = null;
+if (_userPreference) {
+	userPreference = JSON.parse(_userPreference) as User;
+}
+
 function App() {
-	const onBoarding = useAppSelector((state) => state.onBoarding.value);
-	const user = useAppSelector((state) => state.user.value);
+	const [onBoarding, setOnBoarding] = useState(onBoardingPreference);
+	const [user, setUser] = useState(userPreference);
 	const [isLoginPage, goLoginPage] = useState(false);
 	const goJoinPage = () => {
 		goLoginPage(false);
 	};
 
+	const completeOnBoarding = () => {
+		Preferences.set({key: "onBoarding", value: "complete"});
+		setOnBoarding(true);
+	};
+
 	return (
 		<IonApp>
-			<IonReactRouter>
-				{onBoarding ? <OnBoarding/> : user ? <TabBar/> : isLoginPage ? <Login goJoinPage={goJoinPage}/> :
-					<Signup goLoginPage={() => goLoginPage(true)}/>}
-			</IonReactRouter>
+			<UserContext.Provider value={{user, setUser}}>
+				<IonReactRouter>
+					{!onBoarding ? <OnBoarding completeOnBoarding={completeOnBoarding}/> : user ? <TabBar/> : isLoginPage ?
+						<Login goJoinPage={goJoinPage}/> :
+						<Signup goLoginPage={() => goLoginPage(true)}/>}
+				</IonReactRouter>
+			</UserContext.Provider>
 		</IonApp>
 	);
 }

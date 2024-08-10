@@ -17,8 +17,6 @@ import "@ionic/react/css/display.css";
 // import "@ionic/react/css/palettes/dark.system.css"; /* Theme variables */
 import "./theme/variables.css";
 import "./theme/tab-bar.css";
-import {Provider} from "react-redux";
-import store from "./store.ts";
 
 setupIonicReact({
 	mode: "ios",
@@ -26,15 +24,14 @@ setupIonicReact({
 
 const queryClient = new QueryClient();
 
+
 // Render the app
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<QueryClientProvider client={queryClient}>
-			<Provider store={store}>
-				<IonApp>
-					<App/>
-				</IonApp>
-			</Provider>
+			<IonApp>
+				<App/>
+			</IonApp>
 		</QueryClientProvider>
 	</StrictMode>,
 );

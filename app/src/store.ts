@@ -1,21 +1,7 @@
-import {configureStore} from '@reduxjs/toolkit'
-import {useDispatch, useSelector} from "react-redux";
-import {userSlice} from "./store/user.ts";
-import {onBoardingSlice} from "./store/onBoarding.ts";
+import {createContext, Dispatch, SetStateAction} from "react";
+import {User} from "./api/user.ts";
 
-const store = configureStore({
-	reducer: {
-		user: userSlice.reducer,
-		onBoarding: onBoardingSlice.reducer,
-	},
+export const UserContext = createContext({
+	user: null as User | null,
+	setUser: null as unknown as Dispatch<SetStateAction<User | null>>
 });
-
-export default store;
-
-export type RootState = ReturnType<typeof store.getState>;
-
-export type AppDispatch = typeof store.dispatch;
-
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
-export const useAppSelector = useSelector.withTypes<RootState>()
-
