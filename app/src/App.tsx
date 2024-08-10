@@ -34,7 +34,7 @@ function TabBar() {
 					<Map/>
 				</Route>
 				<Route exact path="/chat">
-					<Chat/>
+          <Chat/>
 				</Route>
 				<Route exact path="/settings">
 					<Settings/>
