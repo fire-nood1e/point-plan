@@ -1,6 +1,6 @@
-import {ax} from "./index.ts";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {getSessionConfig} from "./user.ts";
+import {get, post} from "./index.ts";
 
 export type ChatForm = {
 	chat_name: string;
@@ -30,7 +30,9 @@ export async function getChat() {
 	return useQuery({
 		queryKey: [CHAT_QUERY_KEY],
 		queryFn: async () => {
-			const res = await ax.get(`/chat`, await getSessionConfig());
+			const session = await getSessionConfig();
+			if (!session) return;
+			const res = await get(`/chat`, session);
 			return res.data as Chat;
 		}
 	});
@@ -41,7 +43,9 @@ export async function createChat(data: ChatForm) {
 
 	return useMutation({
 		mutationFn: async () => {
-			const res = await ax.post("/chat", data, await getSessionConfig());
+			const session = await getSessionConfig();
+			if (!session) return;
+			const res = await post("/chat", data, session);
 			return res.data as Chat;
 		},
 		onSuccess: () => {
@@ -54,7 +58,9 @@ export async function getMessages(chat_id: number) {
 	return useQuery({
 		queryKey: [MESSAGE_QUERY_KEY, chat_id],
 		queryFn: async () => {
-			const res = await ax.get(`/chat/${chat_id}`, await getSessionConfig());
+			const session = await getSessionConfig();
+			if (!session) return;
+			const res = await get(`/chat/${chat_id}`, session);
 			return res.data as Message[];
 		}
 	})
@@ -65,7 +71,9 @@ export async function createMessages(chat_id: number, data: MessageForm) {
 
 	return useMutation({
 		mutationFn: async () => {
-			const res = await ax.post(`/chat/${chat_id}`, data, await getSessionConfig());
+			const session = await getSessionConfig();
+			if (!session) return;
+			const res = await post(`/chat/${chat_id}`, data, session);
 			return res.data as Message;
 		},
 		onSuccess: (data) => {
