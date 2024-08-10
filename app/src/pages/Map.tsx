@@ -1,11 +1,11 @@
 import { IonContent, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 
-function Radio() {
+function Map() {
   return (
     <>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Radio</IonTitle>
+          <IonTitle>Map</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -17,11 +17,11 @@ function Radio() {
             height: "100%",
           }}
         >
-          Radio content
+          Map content
         </div>
       </IonContent>
     </>
   );
 }
 
-export default Radio;
+export default Map;

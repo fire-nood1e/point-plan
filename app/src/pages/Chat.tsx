@@ -1,11 +1,11 @@
 import { IonContent, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 
-function Library() {
+function Chat() {
   return (
     <>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Library</IonTitle>
+          <IonTitle>Chatting</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -17,11 +17,11 @@ function Library() {
             height: "100%",
           }}
         >
-          Library content
+          Chatting content
         </div>
       </IonContent>
     </>
   );
 }
 
-export default Library;
+export default Chat;
