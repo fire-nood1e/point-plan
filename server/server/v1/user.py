@@ -26,7 +26,7 @@ router = APIRouter(prefix="/auth")
 
 
 @router.post("/login")
-async def login(response: Response, form: UserForm) -> UserResponse:
+async def login(response: Response, form: UserForm) -> str:
     user = await query_user(form.username)
     if not user:
         raise InvalidCredentialsException
@@ -34,8 +34,8 @@ async def login(response: Response, form: UserForm) -> UserResponse:
         raise InvalidCredentialsException
 
     access_token = manager.create_access_token(data={"sub": form.username})
-    response.headers.append("Auth-Token", access_token)
-    return user.to_response()
+    # response.headers.append("Auth-Token", access_token)
+    return access_token
 
 
 @router.post("/logout")
