@@ -51,21 +51,21 @@ class ChatContext:
 
 
 @router.get("/")
-async def list_chat(user: User = Depends(manager)) -> list[ChatResponse]:
+async def list_chat() -> list[ChatResponse]:
     async with Database.async_session() as session:
-        stmt = select(Chat).where(Chat.user_id == user.user_id)
+        stmt = select(Chat).where(Chat.user_id)
         res = (await session.execute(stmt)).scalars().all()
         return [chat.to_response() for chat in res]
 
 
 @router.get("/{chat_id}")
 async def list_messages(
-        chat_id: int, user: User = Depends(manager)
+        chat_id: int
 ) -> list[MessageResponse]:
     async with Database.async_session() as session:
         stmt = select(Chat).where(Chat.chat_id == chat_id)
         chat = (await session.execute(stmt)).scalar()
-        if not chat or chat.user_id != user.user_id:
+        if not chat:
             raise HTTPException(status_code=404, detail="Chat not found")
 
         stmt = select(Message).where(Message.chat_id == chat_id)
@@ -75,11 +75,10 @@ async def list_messages(
 
 @router.post("/")
 async def create_chat(
-        chat_name: ChatForm, user: User = Depends(manager)
+        chat_name: ChatForm
 ) -> ChatResponse:
     async with Database.async_session() as session:
         chat = chat_name.to_chat()
-        chat.user_id = user.user_id
         session.add(chat)
         await session.commit()
         return chat.to_response()
@@ -87,12 +86,12 @@ async def create_chat(
 
 @router.post("/{chat_id}")
 async def create_message(
-        chat_id: int, message: MessageForm, user: User = Depends(manager)
+        chat_id: int, message: MessageForm
 ) -> MessageResponse:
     async with Database.async_session() as session:
         stmt = select(Chat).where(Chat.chat_id == chat_id)
         chat = (await session.execute(stmt)).scalar()
-        if not chat or chat.user_id != user.user_id:
+        if not chat:
             raise HTTPException(status_code=404, detail="Chat not found")
 
         session.add(message.to_message(chat_id, 1))
