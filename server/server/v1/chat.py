@@ -134,7 +134,7 @@ async def create_message(
         conversation_history.append(HumanMessage(content=prompt))
 
         # Pass the entire conversation history to the agent
-        response = ChatContext.agent_executor.invoke({"input": prompt, "history": conversation_history})
+        response = ChatContext.agent_executor.invoke({"input": prompt, "history": conversation_history})['output']
 
         # Ensure the response is a string
         response_text = str(response) if not isinstance(response, str) else response
