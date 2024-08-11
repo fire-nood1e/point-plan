@@ -39,9 +39,7 @@ export async function getChat() {
 }
 
 export async function createChat(data: ChatForm) {
-	const session = await getSessionConfig();
-	if (!session) return;
-	const res = await post("/chat/", data, session);
+	const res = await post("/chat/", data);
 	return res.data as Chat;
 }
 
@@ -58,8 +56,6 @@ export async function getMessages(chat_id: number) {
 }
 
 export async function createMessages(chat_id: number, data: MessageForm) {
-	const session = await getSessionConfig();
-	if (!session) return;
-	const res = await post(`/chat/${chat_id}`, data, session);
+	const res = await post(`/chat/${chat_id}`, data);
 	return res.data as Message;
 }
