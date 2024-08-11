@@ -34,13 +34,13 @@ async def login(response: Response, form: UserForm) -> UserResponse:
         raise InvalidCredentialsException
 
     access_token = manager.create_access_token(data={"sub": form.username})
-    response.set_cookie(manager.cookie_name, access_token, httponly=True)
+    response.headers.append("Auth-Token", access_token)
     return user.to_response()
 
 
 @router.post("/logout")
 async def logout(response: Response) -> dict:
-    response.delete_cookie(manager.cookie_name)
+    # response.delete_cookie(manager.cookie_name)
     return {"status": "ok"}
 
 
