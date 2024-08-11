@@ -11,4 +11,4 @@ RUN pnpm install
 
 COPY app .
 
-CMD ["pnpm", "start", "--host"]
+CMD ["pnpm", "start", "--host", "0.0.0.0"]
