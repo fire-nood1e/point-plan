@@ -33,7 +33,7 @@ services:
     networks:
       - point-plan
 
-  app:
+  public:
     build:
       context: .
       dockerfile: app.Dockerfile
@@ -47,6 +47,9 @@ services:
     networks:
       - point-plan
       - traefik-proxy
+    depends_on:
+      - server
+      - public
     labels:
       - traefik.enable=true
       - traefik.http.routers.point-plan.rule=Host(`${EXPOSE_HOST}`)
@@ -64,4 +67,3 @@ networks:
   traefik-proxy:
     external: true
   point-plan:
-    driver: bridge
