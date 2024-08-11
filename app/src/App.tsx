@@ -17,7 +17,7 @@ import Login from "./pages/Login.tsx";
 import Map from "./pages/Map.tsx";
 import Chat from "./pages/Chat.tsx";
 import Settings from "./pages/Settings.tsx";
-import {UserContext} from "./store.ts";
+import {LocationContext, UserContext} from "./store.ts";
 import {useState} from "react";
 import Signup from "./pages/Signup.tsx";
 import {Preferences} from "@capacitor/preferences";
@@ -34,7 +34,7 @@ function TabBar() {
 					<Map/>
 				</Route>
 				<Route exact path="/chat">
-          <Chat/>
+					<Chat/>
 				</Route>
 				<Route exact path="/settings">
 					<Settings/>
@@ -85,6 +85,7 @@ function App() {
 	const goJoinPage = () => {
 		goLoginPage(false);
 	};
+	const [location, setLocation] = useState<string | null>(null);
 
 	const completeOnBoarding = () => {
 		Preferences.set({key: "onBoarding", value: "complete"});
@@ -94,11 +95,13 @@ function App() {
 	return (
 		<IonApp>
 			<UserContext.Provider value={{user, setUser}}>
-				<IonReactRouter>
-					{!onBoarding ? <OnBoarding completeOnBoarding={completeOnBoarding}/> : user ? <TabBar/> : isLoginPage ?
-						<Login goJoinPage={goJoinPage}/> :
-						<Signup goLoginPage={() => goLoginPage(true)}/>}
-				</IonReactRouter>
+				<LocationContext.Provider value={{location, setLocation}}>
+					<IonReactRouter>
+						{!onBoarding ? <OnBoarding completeOnBoarding={completeOnBoarding}/> : user ? <TabBar/> : isLoginPage ?
+							<Login goJoinPage={goJoinPage}/> :
+							<Signup goLoginPage={() => goLoginPage(true)}/>}
+					</IonReactRouter>
+				</LocationContext.Provider>
 			</UserContext.Provider>
 		</IonApp>
 	);

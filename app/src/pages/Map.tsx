@@ -7,21 +7,24 @@ import {
 	IonSegment,
 	IonSegmentButton
 } from "@ionic/react";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import "./Map.css";
 import {getData} from "../api/data.ts";
+import {LocationContext} from "../store.ts";
 
 function Map() {
 	const [map, setMap] = useState<naver.maps.Map | null>(null);
 	const [selected, setSelected] = useState("decibel");
 	const [datetime, setDatetime] = useState("2024-07-11T10:00:00");
 	const [heatMap, setHeatMap] = useState<naver.maps.visualization.HeatMap | null>(null);
+	const {location} = useContext(LocationContext);
+	const [marker, setMarker] = useState<naver.maps.Marker | null>(null);
 
 	useEffect(() => {
 		if (!map) {
 			const naverMap = new naver.maps.Map('naver-map', {
-				center: new naver.maps.LatLng(36.00568611, 129.3616667),
-				zoom: 10
+				center: new naver.maps.LatLng(36.07, 129.4),
+				zoom: 11
 			});
 
 			setMap(naverMap);
@@ -42,6 +45,18 @@ function Map() {
 			setHeatMap(heatMap_);
 		});
 	}, [selected, datetime]);
+
+	useEffect(() => {
+		if (!map) return;
+		marker?.setMap(null);
+		if (!location) return;
+		const [lat, lng] = location.split(",").map((item) => parseFloat(item));
+		const marker_ = new naver.maps.Marker({
+			position: new naver.maps.LatLng(lat, lng),
+			map: map!
+		});
+		setMarker(marker_);
+	}, [location]);
 
 	return (
 		<>
