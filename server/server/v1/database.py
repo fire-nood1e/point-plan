@@ -66,7 +66,6 @@ class Chat(Base):
     __tablename__ = "chats"
     chat_id: Mapped[int] = mapped_column(primary_key=True)
     chat_name: Mapped[str]
-    user_id: Mapped[int]
 
     def to_response(self) -> "ChatResponse":
         return ChatResponse(
