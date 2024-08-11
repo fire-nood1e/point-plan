@@ -3,7 +3,7 @@ import {IonContent, IonHeader, IonItem, IonList, IonTitle, IonToolbar, IonImg,
 import {logout} from "../server-api/user.ts";
 import {UserContext} from "../store.ts";
 import {useContext} from "react";
-import "./More.css";
+
 
 function Settings() {
 	const {setUser} = useContext(UserContext);
@@ -29,13 +29,21 @@ function Settings() {
 						}
 					}
 					>
-					</IonImg>
-				<h3>username</h3>
+				</IonImg>
+
+				<div style={{
+						textAlign: "center",
+						marginTop: "15px",
+					}} >
+				<h3>My Page</h3>
+				{/* <p onClick={() => logout(setUser)}>Logout</p> */}
+				</div>
 				<IonList>
-					<IonItem onClick={() => logout(setUser)}>
-						Logout
-					</IonItem>
-				</IonList>
+					
+				<h2 style={{
+					marginLeft: "20px",
+				}}>📝 Reports</h2>
+
 				<IonCard>
 					<IonCardHeader>
 						<IonCardTitle>Quiet Cafe</IonCardTitle>
@@ -44,21 +52,23 @@ function Settings() {
 
 					<IonCardContent>Here's a small text description for the card content. Nothing more, nothing less.</IonCardContent>
 				</IonCard>
+				</IonList>
 				<IonImg
 					src="../assets/imgs/popo.png"
 					alt="My name is Popo"
 					
 					style={
 						{
-							width: "50%",
+							width: "200px",
 							height: "auto",
 							display: "block",
 							position: "absolute",
-							bottom: "100px",
+							bottom: "180px",
 							right: "20px",
 						}
 					}
 				></IonImg>
+				
 
 			</IonContent>
 		</>

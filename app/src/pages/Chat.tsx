@@ -11,6 +11,7 @@ import {
 	IonList,
 	IonTitle,
 	IonToolbar,
+  IonLoading
 } from "@ionic/react";
 import {ellipsisHorizontal, ellipsisVertical, search} from "ionicons/icons";
 import "./Chat.css";
@@ -32,6 +33,7 @@ function Chat() {
 	const [currentMessage, setCurrentMessage] = useState("");
 	const [chatId, setChatId] = useState<number | null>(null);
 	const {setLocation} = useContext(LocationContext);
+  const [loading, setLoading] = useState(false); // 로딩 상태 추가
 
 	useEffect(() => {
 		if (chatId === null) {
@@ -46,6 +48,8 @@ function Chat() {
 
 		const userMessage = {sender: "user", text: currentMessage};
 		setMessages([...messages, userMessage]);
+
+    setLoading(true); // 로딩 시작
 
 		createMessages(chatId!, {message: currentMessage}).then((message) => {
 			const botMessage = {sender: "bot", text: message!.message};
@@ -64,6 +68,7 @@ function Chat() {
 				setLocation(`${x},${y}`);
 			});
 			setMessages([...messages, userMessage, botMessage]);
+      setLoading(false); // 로딩 종료
 		});
 
 		setCurrentMessage("");
@@ -92,6 +97,13 @@ function Chat() {
 			</IonHeader>
 
 			<IonContent className="chatContainer">
+
+      <IonLoading
+          className="custom-loading"
+          isOpen={loading} // 로딩 상태에 따라 표시 여부 결정
+          message={"Planning in progress..."} // 로딩 메시지
+          duration={0} // 자동으로 닫히지 않도록 설정
+        />
 
 				<div className="flexContainer">
 					<IonList className="messageList">

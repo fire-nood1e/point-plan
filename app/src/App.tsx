@@ -21,7 +21,8 @@ import {LocationContext, UserContext} from "./store.ts";
 import {useEffect, useState} from "react";
 import Signup from "./pages/Signup.tsx";
 import {Preferences} from "@capacitor/preferences";
-import {myInfo, User} from "./server-api/user.ts";
+import { SplashScreen } from '@capacitor/splash-screen';
+import {myInfo, User} from "./api/user.ts";
 import {Redirect, useLocation} from "react-router";
 
 function TabBar() {
@@ -79,6 +80,19 @@ if (_userPreference) {
 }
 
 function App() {
+
+  useEffect(() => {
+    const showSplashScreen = async () => {
+      // 스플래시 스크린 표시
+      await SplashScreen.show({
+        showDuration: 3000, // 2초 동안 표시
+        autoHide: true, // 자동으로 숨기기
+      });
+    };
+
+    showSplashScreen();
+  }, []);
+
 	const [onBoarding, setOnBoarding] = useState(onBoardingPreference);
 	const [user, setUser] = useState(userPreference);
 	const [isLoginPage, goLoginPage] = useState(false);

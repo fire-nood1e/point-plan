@@ -64,3 +64,11 @@
     align-items: center;
     height: 100%;
 }
+
+ion-loading.custom-loading {
+    --background: linear-gradient(120deg, rgba(137, 247, 254, 0.3) 0%, rgba(102, 166, 255, 0.3) 100%);
+    --spinner-color: #ffffff;
+  
+    color: #ffffff;
+    font-size:large;
+}
