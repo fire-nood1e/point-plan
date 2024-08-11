@@ -1,6 +1,6 @@
 import {IonContent, IonHeader, IonItem, IonList, IonTitle, IonToolbar, IonImg,
 	IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle} from "@ionic/react";
-import {logout} from "../api/user.ts";
+import {logout} from "../server-api/user.ts";
 import {UserContext} from "../store.ts";
 import {useContext} from "react";
 import "./More.css";

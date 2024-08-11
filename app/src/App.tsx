@@ -21,7 +21,7 @@ import {LocationContext, UserContext} from "./store.ts";
 import {useEffect, useState} from "react";
 import Signup from "./pages/Signup.tsx";
 import {Preferences} from "@capacitor/preferences";
-import {myInfo, User} from "./api/user.ts";
+import {myInfo, User} from "./server-api/user.ts";
 import {Redirect, useLocation} from "react-router";
 
 function TabBar() {

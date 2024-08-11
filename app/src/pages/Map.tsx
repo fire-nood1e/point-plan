@@ -9,7 +9,7 @@ import {
 } from "@ionic/react";
 import {useContext, useEffect, useState} from "react";
 import "./Map.css";
-import {getData} from "../api/data.ts";
+import {getData} from "../server-api/data.ts";
 import {LocationContext} from "../store.ts";
 
 function Map() {

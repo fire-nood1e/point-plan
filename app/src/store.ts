@@ -1,5 +1,5 @@
 import {createContext, Dispatch, SetStateAction} from "react";
-import {User} from "./api/user.ts";
+import {User} from "./server-api/user.ts";
 
 export const UserContext = createContext({
 	user: null as User | null,

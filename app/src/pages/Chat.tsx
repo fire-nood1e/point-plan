@@ -15,7 +15,7 @@ import {
 import {ellipsisHorizontal, ellipsisVertical, search} from "ionicons/icons";
 import "./Chat.css";
 import "../theme/tab-bar.css"
-import {createChat, createMessages} from "../api/chat.ts";
+import {createChat, createMessages} from "../server-api/chat.ts";
 import Markdown from "react-markdown";
 import {LocationContext} from "../store.ts";
 

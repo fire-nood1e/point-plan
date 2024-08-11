@@ -1,7 +1,7 @@
 import {useContext, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {IonButton, IonContent, IonInput, IonItem, IonLabel} from "@ionic/react";
-import {login, myInfo} from "../api/user.ts";
+import {login, myInfo} from "../server-api/user.ts";
 import {UserContext} from "../store.ts";
 
 

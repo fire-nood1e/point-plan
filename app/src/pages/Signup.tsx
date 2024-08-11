@@ -1,7 +1,7 @@
 import {useContext, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {IonButton, IonContent, IonInput, IonItem, IonLabel} from "@ionic/react";
-import {register} from "../api/user.ts";
+import {register} from "../server-api/user.ts";
 import {UserContext} from "../store.ts";
 
 function Signup({goLoginPage}: { goLoginPage: () => void }) {
