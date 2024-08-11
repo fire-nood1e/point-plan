@@ -64,3 +64,4 @@ networks:
   traefik-proxy:
     external: true
   point-plan:
+    driver: bridge
