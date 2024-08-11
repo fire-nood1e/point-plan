@@ -17,7 +17,7 @@ function Map() {
 	const [selected, setSelected] = useState("decibel");
 	const [datetime, setDatetime] = useState("2024-07-11T10:00:00");
 	const [heatMap, setHeatMap] = useState<naver.maps.visualization.HeatMap | null>(null);
-	const {location} = useContext(LocationContext);
+	const {location, setLocation} = useContext(LocationContext);
 	const [marker, setMarker] = useState<naver.maps.Marker | null>(null);
 
 	useEffect(() => {
@@ -29,6 +29,7 @@ function Map() {
 
 			setMap(naverMap);
 			setDatetime("2024-07-11T11:00:00");
+			setLocation(location+"0");
 		}
 	});
 
@@ -50,7 +51,7 @@ function Map() {
 		if (!map) return;
 		marker?.setMap(null);
 		if (!location) return;
-		const [lat, lng] = location.split(",").map((item) => parseFloat(item));
+		const [lng, lat] = location.split(",").map((item) => parseFloat(item));
 		const marker_ = new naver.maps.Marker({
 			position: new naver.maps.LatLng(lat, lng),
 			map: map!

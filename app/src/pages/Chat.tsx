@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
 	IonButton,
 	IonButtons,
@@ -17,6 +17,7 @@ import "./Chat.css";
 import "../theme/tab-bar.css"
 import {createChat, createMessages} from "../api/chat.ts";
 import Markdown from "react-markdown";
+import {LocationContext} from "../store.ts";
 
 function Chat() {
 	const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
@@ -30,6 +31,7 @@ function Chat() {
 	);
 	const [currentMessage, setCurrentMessage] = useState("");
 	const [chatId, setChatId] = useState<number | null>(null);
+	const {setLocation} = useContext(LocationContext);
 
 	useEffect(() => {
 		if (chatId === null) {
@@ -47,6 +49,20 @@ function Chat() {
 
 		createMessages(chatId!, {message: currentMessage}).then((message) => {
 			const botMessage = {sender: "bot", text: message!.message};
+			const query = botMessage.text.match(/포항[가-힣 \d]+/)![0];
+			naver.maps.Service.geocode({
+				query,
+			}, function (status, response) {
+				if (status !== naver.maps.Service.Status.OK) {
+					console.error("Failed to find location");
+					return;
+				}
+
+				console.log(response);
+
+				const {x, y} = response.v2.addresses[0];
+				setLocation(`${x},${y}`);
+			});
 			setMessages([...messages, userMessage, botMessage]);
 		});
 

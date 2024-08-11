@@ -12,16 +12,7 @@ services:
     depends_on:
       postgresql:
         condition: service_healthy
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.point-plan.rule=Host(`${EXPOSE_HOST}`)
-      - traefik.http.routers.point-plan.tls=true
-      - traefik.http.routers.point-plan.tls.certresolver=le
-      - traefik.http.routers.point-plan.entrypoints=websecured
-      - traefik.http.routers.point-plan.service=point-plan
-      - traefik.http.services.point-plan.loadbalancer.server.port=80
     networks:
-      - traefik-proxy
       - point-plan
 
   postgresql:
@@ -41,6 +32,32 @@ services:
       retries: 3
     networks:
       - point-plan
+
+  app:
+    build:
+      context: .
+      dockerfile: app.Dockerfile
+    networks:
+      - point-plan
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    networks:
+      - point-plan
+      - traefik-proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.point-plan.rule=Host(`${EXPOSE_HOST}`)
+      - traefik.http.routers.point-plan.tls=true
+      - traefik.http.routers.point-plan.tls.certresolver=le
+      - traefik.http.routers.point-plan.entrypoints=websecured
+      - traefik.http.routers.point-plan.service=point-plan
+      - traefik.http.services.point-plan.loadbalancer.server.port=80
+
 
 volumes:
   postgresql_data:
