@@ -1,4 +1,6 @@
 # pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring
+import asyncio
+import concurrent.futures
 from datetime import datetime
 from pathlib import Path
 
@@ -132,7 +134,7 @@ async def create_message(
         conversation_history.append(HumanMessage(content=prompt))
 
         # Pass the entire conversation history to the agent
-        response = ChatContext.agent_executor.invoke({"input": prompt, "history": conversation_history})
+        response = ChatContext.agent_executor.invoke({"input": prompt, "history": conversation_history})['output']
 
         # Ensure the response is a string
         response_text = str(response) if not isinstance(response, str) else response
@@ -142,7 +144,10 @@ async def create_message(
 
         return response_text
 
-    response = answer_user_query(message.message)
+    loop = asyncio.get_running_loop()
+    with concurrent.futures.ThreadPoolExecutor() as pool:
+        response = await loop.run_in_executor(pool, lambda: answer_user_query(message.message))
+
     message = MessageForm(message=response, message_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     message = message.to_message(chat_id, 0)
 
