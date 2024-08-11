@@ -58,7 +58,7 @@ function Chat() {
 						</IonButton>
 					</IonButtons>
 
-					<IonTitle>Chatting</IonTitle>
+					<IonTitle>Plan Now</IonTitle>
 
 					<IonButtons slot="primary">
 						<IonButton>
