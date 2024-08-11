@@ -42,20 +42,16 @@ export async function getSessionConfig(): Promise<HttpHeaders | null> {
 	return session ? {Cookie: session} : null;
 }
 
-export async function login(data: UserForm, updateUser: Dispatch<SetStateAction<User | null>>) {
+export async function login(data: UserForm) {
 	try {
 		const res = await post("/auth/login", data);
-		const session =
-			res.headers["set-cookie"]?.[0]
-				?.split(";")
-				?.find((c) => c.includes("session=")) ?? "";
+		const session = res.data;
 
 		await Preferences.set({
 			key: 'session',
 			value: session.trim(),
 		});
 
-		return await setUser(res.data as User, updateUser);
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (err) {
 		await Preferences.remove({key: 'session'});
@@ -75,8 +71,13 @@ export async function logout(updateUser: Dispatch<SetStateAction<User | null>>) 
 
 export async function myInfo(updateUser: Dispatch<SetStateAction<User | null>>) {
 	const session = await getSessionConfig();
-	if (!session) return;
-	return await setUser((await get('/auth/me', session)).data, updateUser);
+	if (!session) {
+		await Preferences.remove({key: 'user'});
+		return;
+	}
+	return await setUser((await get('/auth/me', session)).data, updateUser).catch(() => {
+		Preferences.remove({key: 'user'});
+	});
 }
 
 export async function register(data: UserForm, updateUser: Dispatch<SetStateAction<User | null>>) {
@@ -92,11 +93,13 @@ export async function deleteUser(updateUser: Dispatch<SetStateAction<User | null
 	await del('/auth', {Cookie: session});
 }
 
-export async function changePassword(data: { current: string, password: string }, updateUser: Dispatch<SetStateAction<User | null>>) {
+export async function changePassword(data: {
+	current: string,
+	password: string
+}, updateUser: Dispatch<SetStateAction<User | null>>) {
 	return await setUser((await put('/auth/password', data)).data, updateUser);
 }
 
 export async function editUser(data: UserEditForm, updateUser: Dispatch<SetStateAction<User | null>>) {
 	return await setUser((await put('/auth/info', data)).data, updateUser);
 }
-

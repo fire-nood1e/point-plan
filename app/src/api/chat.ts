@@ -1,4 +1,4 @@
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import {getSessionConfig} from "./user.ts";
 import {get, post} from "./index.ts";
 
@@ -33,25 +33,16 @@ export async function getChat() {
 			const session = await getSessionConfig();
 			if (!session) return;
 			const res = await get(`/chat`, session);
-			return res.data as Chat;
+			return res.data as Chat[];
 		}
 	});
 }
 
 export async function createChat(data: ChatForm) {
-	const queryClient = useQueryClient()
-
-	return useMutation({
-		mutationFn: async () => {
-			const session = await getSessionConfig();
-			if (!session) return;
-			const res = await post("/chat", data, session);
-			return res.data as Chat;
-		},
-		onSuccess: () => {
-			queryClient.invalidateQueries({queryKey: [CHAT_QUERY_KEY]});
-		}
-	});
+	const session = await getSessionConfig();
+	if (!session) return;
+	const res = await post("/chat/", data, session);
+	return res.data as Chat;
 }
 
 export async function getMessages(chat_id: number) {
@@ -67,19 +58,8 @@ export async function getMessages(chat_id: number) {
 }
 
 export async function createMessages(chat_id: number, data: MessageForm) {
-	const queryClient = useQueryClient()
-
-	return useMutation({
-		mutationFn: async () => {
-			const session = await getSessionConfig();
-			if (!session) return;
-			const res = await post(`/chat/${chat_id}`, data, session);
-			return res.data as Message;
-		},
-		onSuccess: (data) => {
-			queryClient.setQueryData([MESSAGE_QUERY_KEY, chat_id], (old: Message[] | undefined) => {
-				return old ? [...old, data] : [data];
-			});
-		}
-	});
+	const session = await getSessionConfig();
+	if (!session) return;
+	const res = await post(`/chat/${chat_id}`, data, session);
+	return res.data as Message;
 }

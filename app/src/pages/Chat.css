@@ -2,20 +2,20 @@
 .chatContainer {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100% - 70px);
     background-image: url('../assets/imgs/bg.png'); /* 배경 이미지 경로 */
     background-size: cover;
     background-position: center;
     position: relative; /* 자식 요소의 절대 위치를 위해 relative 설정 */
-  }
-  
-  .messageList {
+}
+
+.messageList {
     flex: 1; /* 남은 공간을 차지하도록 설정 */
     overflow-y: auto; /* 메시지가 많을 때 스크롤 가능하게 설정 */
     padding-bottom: 60px; /* 입력란 높이만큼 아래 패딩 추가 */
-  }
-  
-  .inputContainer {
+}
+
+.inputContainer {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -25,7 +25,7 @@
     bottom: 80px; /* 하단에 고정 */
     left: 0; /* 좌측 고정 */
     right: 0; /* 우측 고정 */
-  }  
+}
 
 /* .bg {
     background: url('../assets/imgs/bg.png');
@@ -40,7 +40,7 @@
     --ion-item-border-color: transparent; /* 경계선을 투명으로 설정 */
     --ion-item-border-width: 0; /* 경계선의 두께를 0으로 설정 */
     padding-top: 12px;
-  }
+}
 
 .inputContainer ion-button {
     /* --background: #66A6FF; */
@@ -48,18 +48,26 @@
     --background-hover: #9ce0be;
     --background-activated: #BBE1FC;
     --background-focused: #BBE1FC;
-  
+
     --color: white;
-  
+
     --border-radius: 10px;
     --border-color: #000;
     --border-style: none;
     --border-width: 1px;
-  
+
     --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-  
+
     --ripple-color: deeppink;
-  
+
     --padding-top: 10px;
     --padding-bottom: 10px;
-  }
+}
+
+.flexContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: scroll;
+    height: 100%;
+}

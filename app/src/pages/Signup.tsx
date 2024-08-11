@@ -4,12 +4,12 @@ import {IonButton, IonContent, IonInput, IonItem, IonLabel} from "@ionic/react";
 import {register} from "../api/user.ts";
 import {UserContext} from "../store.ts";
 
-function Signup({ goLoginPage }: { goLoginPage: () => void }) {
+function Signup({goLoginPage}: { goLoginPage: () => void }) {
 	// 사용자 이름과 비밀번호 상태 관리
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const history = useHistory();  // useHistory 훅 사용
-	const { setUser}  = useContext(UserContext);
+	const {setUser} = useContext(UserContext);
 
 	// 로그인 버튼 클릭 시 호출될 함수
 	const handleLogin = async () => {

@@ -18,10 +18,10 @@ import Map from "./pages/Map.tsx";
 import Chat from "./pages/Chat.tsx";
 import Settings from "./pages/Settings.tsx";
 import {LocationContext, UserContext} from "./store.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Signup from "./pages/Signup.tsx";
 import {Preferences} from "@capacitor/preferences";
-import {User} from "./api/user.ts";
+import {myInfo, User} from "./api/user.ts";
 import {Redirect, useLocation} from "react-router";
 
 function TabBar() {

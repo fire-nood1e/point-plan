@@ -62,7 +62,7 @@ function Map() {
 		<>
 			<IonContent>
 				<div id="naver-map" style={{width: "100vw", height: "100vh", position: "absolute", left: "0", top: "0"}}></div>
-				<div style={{padding: "10px"}}>
+				<div style={{padding: "10px", paddingTop: "60px"}}>
 					<IonSegment value={selected} onIonChange={(e) => setSelected(e.detail.value as string)}>
 						<IonSegmentButton value="decibel">
 							<IonLabel>Decibel</IonLabel>
