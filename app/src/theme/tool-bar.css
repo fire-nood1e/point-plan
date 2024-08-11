@@ -1,0 +1,14 @@
+ion-toolbar {
+    --background: #BBE1FC;
+    --color: black;
+
+    /* --background-color: #BBE1FC; */
+  
+    /* --border-color: none; */
+    /* --border-width: 0px 0; */
+    /* --border-style: double; */
+  
+    --min-height: 60px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+  }

@@ -26,7 +26,6 @@
     left: 0; /* 좌측 고정 */
     right: 0; /* 우측 고정 */
   }  
-  
 
 /* .bg {
     background: url('../assets/imgs/bg.png');
@@ -43,7 +42,7 @@
     padding-top: 12px;
   }
 
-ion-button {
+.inputContainer ion-button {
     /* --background: #66A6FF; */
     --background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
     --background-hover: #9ce0be;

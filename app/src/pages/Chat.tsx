@@ -4,14 +4,18 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonIcon,
   IonInput,
+  IonButtons,
   IonButton,
   IonList,
   IonItem,
   IonLabel,
 } from "@ionic/react";
-import { ChatBot } from "../components/Chatbot";
+import { ChatBot } from "../components/ChatBot";
+import { search, ellipsisHorizontal, ellipsisVertical } from "ionicons/icons";
 import "./Chat.css";
+import "../theme/tab-bar.css"
 
 function Chat() {
 
@@ -41,7 +45,21 @@ function Chat() {
     <>
         <IonHeader>
           <IonToolbar>
+
+          <IonButtons slot="secondary">
+            <IonButton>
+              <IonIcon slot="icon-only" ios={ellipsisHorizontal} md={ellipsisVertical}></IonIcon>
+            </IonButton>
+          </IonButtons>
+
             <IonTitle>Chatting</IonTitle>
+
+            <IonButtons slot="primary">
+            <IonButton>
+              <IonIcon slot="icon-only" icon={search}></IonIcon>
+            </IonButton>
+          </IonButtons>
+
           </IonToolbar>
         </IonHeader>
       
