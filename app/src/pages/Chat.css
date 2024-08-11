@@ -22,17 +22,12 @@
     border-top: 1px solid #ddd;
     background: rgba(255, 255, 255, 0.9); /* 입력 부분 배경색 조정 (투명도) */
     position: absolute; /* 절대 위치 설정 */
-    bottom: 80px; /* 하단에 고정 */
+    bottom: 110px;
     left: 0; /* 좌측 고정 */
     right: 0; /* 우측 고정 */
   }  
 
-/* .bg {
-    background: url('../assets/imgs/bg.png');
-    background-size: cover;
-    position: absolute;
 
-} */
 
 /* 기본 IonItem 스타일을 재정의하여 경계선 제거 */
 .messageList ion-item {
