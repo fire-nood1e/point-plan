@@ -2,7 +2,7 @@
 .chatContainer {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 70px);
+    height: calc(100% - 250px);
     background-image: url('../assets/imgs/bg.png'); /* 배경 이미지 경로 */
     background-size: cover;
     background-position: center;
@@ -20,13 +20,13 @@
     align-items: center;
     padding: 10px;
     border-top: 1px solid #ddd;
-    background: rgba(255, 255, 255, 0.9); /* 입력 부분 배경색 조정 (투명도) */
-    position: absolute; /* 절대 위치 설정 */
-    bottom: 110px;
+    background: rgba(255, 255, 255); /* 입력 부분 배경색 조정 (투명도) */
+    position: fixed; /* 절대 위치 설정 */
+    bottom: 0;
     left: 0; /* 좌측 고정 */
     right: 0; /* 우측 고정 */
+    padding-bottom: 110px;
 }
-
 
 
 /* 기본 IonItem 스타일을 재정의하여 경계선 제거 */
@@ -44,7 +44,7 @@
     --background-activated: #BBE1FC;
     --background-focused: #BBE1FC;
 
-    --color: white;
+    --color: white !important;
 
     --border-radius: 10px;
     --border-color: #000;
@@ -60,9 +60,7 @@
 }
 
 .flexContainer {
-    display: flex;
     justify-content: space-between;
     align-items: center;
-    overflow: scroll;
     height: 100%;
 }

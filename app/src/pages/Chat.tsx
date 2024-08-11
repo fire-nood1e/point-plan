@@ -20,7 +20,13 @@ import Markdown from "react-markdown";
 
 function Chat() {
 	const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
-		[]
+		[{
+			sender: "bot",
+			text:
+				`## Hello! How can I help you?
+				
+### Please tell us your __interests__ to start planning.`,
+		}]
 	);
 	const [currentMessage, setCurrentMessage] = useState("");
 	const [chatId, setChatId] = useState<number | null>(null);
@@ -41,7 +47,7 @@ function Chat() {
 
 		createMessages(chatId!, {message: currentMessage}).then((message) => {
 			const botMessage = {sender: "bot", text: message!.message};
-			setMessages([...messages, botMessage]);
+			setMessages([...messages, userMessage, botMessage]);
 		});
 
 		setCurrentMessage("");
@@ -84,11 +90,11 @@ function Chat() {
 								>
 									<IonLabel
 										style={{
-											backgroundColor: message.sender === "user" ? "#21AAFF" : "#FFEFD7",
+											backgroundColor: message.sender === "user" ? "#c6ebff" : "#fff7ee",
 											color: message.sender === "user" ? "#fff" : "#000",
 											padding: "10px",
 											borderRadius: "10px",
-											maxWidth: "70%",
+											maxWidth: "85%",
 										}}
 									>
 										<Markdown>
